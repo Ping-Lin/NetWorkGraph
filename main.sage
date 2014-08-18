@@ -54,12 +54,23 @@ def readFile():
 			l.append(cut)
 	return l
 
+#this function is calculating the clique number, the input is the correlation table
+def cliqueFunc():
+	c=[]   #correlation array
+	with open("correlation_total.csv", 'r') as f:
+		f.readline()
+		sys.exit(1)
+		for line in f:
+			sys.exit(1)
+	
+
 def main():
 	#test grid2DGraph
 	"""g = graphs.Grid2dGraph(12,10)
 	g.plot(color_by_label=True, edge_style='solid').show(filename="1.png", figsize=(15,15), title="network")
 	sys.exit(1)"""
-
+	#read the input and draw the graph
+	"""	
 	checkArguments()
 	l = readFile()
 	#initial the edge colors
@@ -76,7 +87,10 @@ def main():
 			if ifColor is True:
 				edge_colors[R[i]] = [(a, b, c)]
 
-	g.plot(vertex_size = 8, edge_labels=True, edge_colors=edge_colors, edge_style='solid').show(filename="test.png", figsize=(50,50), title="network")
+	g.plot(vertex_size = 8, edge_labels=True, edge_colors=edge_colors, edge_style='solid').show(filename="test.png", figsize=(50,50), title="network")"""
+	
+	cliqueFunc();
+
 
 if __name__ == "__main__":
 	main()
