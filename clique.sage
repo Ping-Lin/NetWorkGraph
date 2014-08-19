@@ -16,31 +16,18 @@ def cliqueFunc():
 					if cut[i+1] != "" and float(cut[i+1]) >= 0.95:
 						l.append([int(cut[0]), i+1])
 	
-	f = open(argv[1], 'wt')
+	#initial graph
+	g = Graph({}, loops = False, multiedges=False)
+	for i in xrange(len(l)):
+		for a, b in [(l[i][0], l[i][1])]:
+			g.add_edge(a, b)
 
 	#gridy method to find every maximum clique
-	while len(l) != 0:   #when the remaining graph is 0
-		g = Graph({}, loops = False, multiedges=False)
-
-		for i in xrange(len(l)):
-			for a, b in [(l[i][0], l[i][1])]:
-				g.add_edge(a, b)
-	
-		modifiedL=[]   #store the list no remove
-
+	while g.size() != 0:   #when the remaining graph is 0	
 		findMax = g.cliques_maximum()   #find the max clique
-		for i in xrange(len(l)):
-			flag = True
-			for num in findMax[0]:   #becase there is posibility of multiple max cliques
-				if l[i][0] == num or l[i][1] == num:
-					flag = False
-					break
-			if flag == True:
-				modifiedL.append(l[i]);
+		g.delete_vertices(findMax[0])
 
 		#add into remainging graph
-		l = modifiedL
-
 		for num in findMax[0]:
 			print num,",",
 		print
