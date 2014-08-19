@@ -28,8 +28,9 @@ def cliqueFunc():
 		g.delete_vertices(findMax[0])
 
 		#add into remainging graph
-		for num in findMax[0]:
-			print num,",",
+		print "%d" %findMax[0][0],
+		for num in findMax[0][1:]:
+			print ", %d" %num,
 		print
 			
 def main():
