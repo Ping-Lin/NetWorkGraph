@@ -1,6 +1,7 @@
 #!/usr/bin/sage
 from sage.all import *
 import sys, getopt
+
 inputFile=""
 ifMultiedges=False
 ifDirected = False
@@ -15,9 +16,6 @@ def checkArguments():	#need the least two argument
 	if len(sys.argv) < 2:
 		usage()
 		exit()
-	
-	global inputFile   #set up the input file name
-	inputFile = sys.argv[1]
 
 	try:
 		opts, args = getopt.getopt(sys.argv[2:], "hmdc", ["help", "multiedges", "directed", "color"])
@@ -47,16 +45,26 @@ def checkArguments():	#need the least two argument
 #read the input file
 def readFile():
 	l=[]
-	global inputFile
-	with open(inputFile, 'r') as f:   #this can change to read csv file
-		for line in f:
-			cut = [x.strip() for x in line.strip().split(",")]
-			l.append(cut)
+	global inputFile   #set up the input file name
+	inputFile = sys.argv[1]
+	
+	try:
+		f = open(inputFile, 'r')
+	except IOError:
+		print "[Error]: \"%s\" file open error" %inputFile
+		exit()
+	else:
+		with f:   #this can change to read csv file
+			for line in f:
+				cut = [x.strip() for x in line.strip().split(",")]
+				l.append(cut)
+
 	return l
 
 def main():
-	#test grid2DGraph
-	"""g = graphs.Grid2dGraph(12,10)
+	"""
+	#test Grid2dGraph
+	g = graphs.Grid2dGraph(10,20)
 	g.plot(color_by_label=True, edge_style='solid').show(filename="1.png", figsize=(15,15), title="network")
 	sys.exit(1)"""
 	#read the input and draw the graph
@@ -76,8 +84,7 @@ def main():
 			if ifColor is True:
 				edge_colors[R[i]] = [(a, b, c)]
 
-	g.plot(vertex_size = 8, edge_labels=True, edge_colors=edge_colors, edge_style='solid').show(filename="test.png", figsize=(50,50), title="network")
-
+	g.plot(vertex_size = 8, edge_labels=True, edge_colors=edge_colors, edge_style='solid').show(filename="test.png", figsize=(20,20), title="network")
 
 if __name__ == "__main__":
 	main()

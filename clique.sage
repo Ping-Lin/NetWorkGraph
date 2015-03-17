@@ -9,12 +9,15 @@ def cliqueFunc():
 	#read file
 	with open("correlation_total.csv", 'r') as f:
 		tmp = f.readline()   #the first line we don't want
+		header = [x.strip() for x in tmp.strip().split(",")]
+		
+		j=1
 		for line in f:
 			cut = [x.strip() for x in line.strip().split(",")]
-			for i in xrange(len(cut)-1):
-				if i+1 > int(cut[0]):
-					if cut[i+1] != "" and float(cut[i+1]) >= 0.95:
-						l.append([int(cut[0]), i+1])
+			for i in range(j, len(cut)-1):
+				if cut[i] != "" and float(cut[i]) >= 0.95:
+					l.append([int(cut[0]), int(header[i])])
+			++j
 	
 	#initial graph
 	g = Graph({}, loops = False, multiedges=False)
